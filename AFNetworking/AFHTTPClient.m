@@ -443,6 +443,20 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 	[self.defaultHeaders removeObjectForKey:@"Authorization"];
 }
 
+#ifdef __CORELOCATION__
+- (void)setGeoPositionHeaderWithLocation:(CLLocation *)location {
+    if (!location) {
+        return;
+    }
+    
+    [self setDefaultHeader:@"Geo-Position" value:[NSString stringWithFormat:@"%f;%f;%f epu=%f hdn=%f spd=%f", location.coordinate.latitude, location.coordinate.longitude, location.altitude, location.horizontalAccuracy, location.course, location.speed]];
+}
+#endif
+
+- (void)clearGeoPositionHeader {
+    [self.defaultHeaders removeObjectForKey:@"Geo-Position"];
+}
+
 #pragma mark -
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method 

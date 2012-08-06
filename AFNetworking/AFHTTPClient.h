@@ -268,6 +268,22 @@ extern NSString * AFQueryStringFromParametersWithEncoding(NSDictionary *paramete
  */
 - (void)clearAuthorizationHeader;
 
+/**
+ Sets the "Geo-Position" HTTP header set request objects made by the HTTP client to a string representing the current coordinates, altitude, speed, and heading. This overwrites any existing value for this header.
+ 
+ @param The location specified in the header
+ 
+ @see http://tools.ietf.org/html/draft-daviel-http-geo-header
+ */
+#ifdef __CORELOCATION__
+- (void)setGeoPositionHeaderWithLocation:(CLLocation *)location;
+#endif
+
+/**
+ Clears any existing value for the "Geo-Position" HTTP header.
+ */
+- (void)clearGeoPositionHeader;
+
 ///-------------------------------
 /// @name Creating Request Objects
 ///-------------------------------
