@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 752)" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">AFNetworking </a></h1>
-				<a id="developerHome" href="../index.html">Alamofire</a>
+				<a id="developerHome" href="../index.html">AFNetworking</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -41,6 +41,8 @@
 	<option value="properties">Properties</option>
 	
 	<option value="//api/name/enabled">&nbsp;&nbsp;&nbsp;&nbsp;enabled</option>
+	
+	<option value="//api/name/isNetworkActivityIndicatorVisible">&nbsp;&nbsp;&nbsp;&nbsp;isNetworkActivityIndicatorVisible</option>
 	
 	
 	
@@ -83,6 +85,8 @@
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enabled">enabled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isNetworkActivityIndicatorVisible">isNetworkActivityIndicatorVisible</a></span></li>
 	
 </ul></li>
 
@@ -139,7 +143,9 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p><a href="AFNetworkActivityIndicatorManager.html"><code>AFNetworkActivityIndicatorManager</code></a> manages the state of the network activity indicator in the status bar. When <a href="#//api/name/enabled">enabled</a>, it will listen for notifications indicating that a network request operation has started or finished, and start or stop animating the indicator accordingly. The number of active requests is incremented and decremented much like a stack or a semaphore, and the activity indicator will animate so long as that number is greater than zero.</p>
+						<p><code>AFNetworkActivityIndicatorManager</code> manages the state of the network activity indicator in the status bar. When <a href="#//api/name/enabled">enabled</a>, it will listen for notifications indicating that a network request operation has started or finished, and start or stop animating the indicator accordingly. The number of active requests is incremented and decremented much like a stack or a semaphore, and the activity indicator will animate so long as that number is greater than zero.</p>
+
+<p>@discussion By setting <a href="#//api/name/isNetworkActivityIndicatorVisible"><code>isNetworkActivityIndicatorVisible</code></a> to <code>YES</code> for <a href="#//api/name/sharedManager"><code>sharedManager</code></a>, the network activity indicator will show and hide automatically as requests start and finish. You should not ever need to call <a href="#//api/name/incrementActivityCount"><code>incrementActivityCount</code></a> or <a href="#//api/name/decrementActivityCount"><code>decrementActivityCount</code></a> yourself.</p>
 					</div>
 					
 					
@@ -158,7 +164,14 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/enabled">&nbsp;&nbsp;enabled</a></code>
-		<span class="tooltip"><p>A Boolean value indicating whether the manager is <a href="#//api/name/enabled">enabled</a>.</p></span>
+		<span class="tooltip"><p>A Boolean value indicating whether the manager is enabled.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isNetworkActivityIndicatorVisible">&nbsp;&nbsp;isNetworkActivityIndicatorVisible</a></code>
+		<span class="tooltip"><p>A Boolean value indicating whether the network activity indicator is currently displayed in the status bar.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -203,12 +216,14 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A Boolean value indicating whether the manager is <a href="#//api/name/enabled">enabled</a>.</p>
+		<p>A Boolean value indicating whether the manager is enabled.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, getter=isEnabled) BOOL enabled</code></div>
-	
+
+    
 	
 	
 	
@@ -218,9 +233,50 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>A Boolean value indicating whether the manager is <a href="#//api/name/enabled">enabled</a>.</p>
+		<p>A Boolean value indicating whether the manager is enabled.</p>
 
 <p>@discussion If YES, the manager will change status bar network activity indicator according to network operation notifications it receives. The default value is NO.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AFNetworkActivityIndicatorManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isNetworkActivityIndicatorVisible" title="isNetworkActivityIndicatorVisible"></a>
+	<h3 class="subsubtitle method-title">isNetworkActivityIndicatorVisible</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A Boolean value indicating whether the network activity indicator is currently displayed in the status bar.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, assign) BOOL isNetworkActivityIndicatorVisible</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>A Boolean value indicating whether the network activity indicator is currently displayed in the status bar.</p>
 	</div>
 	
 	
@@ -255,9 +311,11 @@
 		<p>Returns the shared network activity indicator manager object for the system.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (AFNetworkActivityIndicatorManager *)sharedManager</code></div>
-	
+
+    
 	
 	
 	
@@ -307,9 +365,11 @@
 		<p>Decrements the number of active network requests. If this number becomes zero before decrementing, this will stop animating the status bar network activity indicator.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)decrementActivityCount</code></div>
-	
+
+    
 	
 	
 	
@@ -346,9 +406,11 @@
 		<p>Increments the number of active network requests. If this number was zero before incrementing, this will start animating the status bar network activity indicator.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)incrementActivityCount</code></div>
-	
+
+    
 	
 	
 	
@@ -388,9 +450,9 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Alamofire. All rights reserved. (Last updated: 2012-01-23)</span><br />
+						<p><span class="copyright">&copy; 2012 AFNetworking. All rights reserved. (Last updated: 2012-09-05)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 752)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -478,6 +540,14 @@
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

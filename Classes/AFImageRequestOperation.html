@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 752)" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">AFNetworking </a></h1>
-				<a id="developerHome" href="../index.html">Alamofire</a>
+				<a id="developerHome" href="../index.html">AFNetworking</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -49,7 +49,7 @@
 	
 	<option value="class_methods">Class Methods</option>
 	
-	<option value="//api/name/imageRequestOperationWithRequest:imageProcessingBlock:cacheName:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;+ imageRequestOperationWithRequest:imageProcessingBlock:cacheName:success:failure:</option>
+	<option value="//api/name/imageRequestOperationWithRequest:imageProcessingBlock:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;+ imageRequestOperationWithRequest:imageProcessingBlock:success:failure:</option>
 	
 	<option value="//api/name/imageRequestOperationWithRequest:success:">&nbsp;&nbsp;&nbsp;&nbsp;+ imageRequestOperationWithRequest:success:</option>
 	
@@ -89,7 +89,7 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/imageRequestOperationWithRequest:imageProcessingBlock:cacheName:success:failure:">imageRequestOperationWithRequest:imageProcessingBlock:cacheName:success:failure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/imageRequestOperationWithRequest:imageProcessingBlock:success:failure:">imageRequestOperationWithRequest:imageProcessingBlock:success:failure:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/imageRequestOperationWithRequest:success:">imageRequestOperationWithRequest:success:</a></span></li>
 	
@@ -132,11 +132,11 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p><a href="AFImageRequestOperation.html"><code>AFImageRequestOperation</code></a> is a subclass of <a href="../Classes/AFHTTPRequestOperation.html"><code>AFHTTPRequestOperation</code></a> for downloading an processing images.</p>
+						<p><code>AFImageRequestOperation</code> is a subclass of <a href="../Classes/AFHTTPRequestOperation.html"><code>AFHTTPRequestOperation</code></a> for downloading an processing images.</p>
 
 <h2>Acceptable Content Types</h2>
 
-<p>By default, <a href="AFImageRequestOperation.html"><code>AFImageRequestOperation</code></a> accepts the following MIME types, which correspond to the image formats supported by UIImage or NSImage:</p>
+<p>By default, <code>AFImageRequestOperation</code> accepts the following MIME types, which correspond to the image formats supported by UIImage or NSImage:</p>
 
 <ul>
 <li><code>image/tiff</code></li>
@@ -176,21 +176,21 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/imageScale">&nbsp;&nbsp;imageScale</a></code>
-		<span class="tooltip"><p>The scale factor used when interpreting the image data to construct <a href="#//api/name/responseImage"><code>responseImage</code></a>. Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the image. Applying a different scale factor changes the size of the image as reported by the size property. This is set to the value of <code>[[UIScreen mainScreen] scale]</code> by default, which automatically scales images for retina displays, for instance.</p></span>
+		<span class="tooltip"><p>The scale factor used when interpreting the image data to construct <a href="#//api/name/responseImage"><code>responseImage</code></a>. Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the image. Applying a different scale factor changes the size of the image as reported by the size property. This is set to the value of scale of the main screen by default, which automatically scales images for retina displays, for instance.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/imageRequestOperationWithRequest:success:">+&nbsp;imageRequestOperationWithRequest:success:</a></code>
-		<span class="tooltip"><p>Creates and returns an <a href="AFImageRequestOperation.html"><code>AFImageRequestOperation</code></a> object and sets the specified success callback.</p></span>
+		<span class="tooltip"><p>Creates and returns an <code>AFImageRequestOperation</code> object and sets the specified success callback.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/imageRequestOperationWithRequest:imageProcessingBlock:cacheName:success:failure:">+&nbsp;imageRequestOperationWithRequest:imageProcessingBlock:cacheName:success:failure:</a></code>
-		<span class="tooltip"><p>Creates and returns an <a href="AFImageRequestOperation.html"><code>AFImageRequestOperation</code></a> object and sets the specified success callback.</p></span>
+		<code><a href="#//api/name/imageRequestOperationWithRequest:imageProcessingBlock:success:failure:">+&nbsp;imageRequestOperationWithRequest:imageProcessingBlock:success:failure:</a></code>
+		<span class="tooltip"><p>Creates and returns an <code>AFImageRequestOperation</code> object and sets the specified success callback.</p></span>
 	</span>
 	
 	
@@ -214,12 +214,14 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The scale factor used when interpreting the image data to construct <a href="#//api/name/responseImage"><code>responseImage</code></a>. Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the image. Applying a different scale factor changes the size of the image as reported by the size property. This is set to the value of <code>[[UIScreen mainScreen] scale]</code> by default, which automatically scales images for retina displays, for instance.</p>
+		<p>The scale factor used when interpreting the image data to construct <a href="#//api/name/responseImage"><code>responseImage</code></a>. Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the image. Applying a different scale factor changes the size of the image as reported by the size property. This is set to the value of scale of the main screen by default, which automatically scales images for retina displays, for instance.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) CGFloat imageScale</code></div>
-	
+
+    
 	
 	
 	
@@ -229,7 +231,7 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>The scale factor used when interpreting the image data to construct <a href="#//api/name/responseImage"><code>responseImage</code></a>. Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the image. Applying a different scale factor changes the size of the image as reported by the size property. This is set to the value of <code>[[UIScreen mainScreen] scale]</code> by default, which automatically scales images for retina displays, for instance.</p>
+		<p>The scale factor used when interpreting the image data to construct <a href="#//api/name/responseImage"><code>responseImage</code></a>. Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the image. Applying a different scale factor changes the size of the image as reported by the size property. This is set to the value of scale of the main screen by default, which automatically scales images for retina displays, for instance.</p>
 	</div>
 	
 	
@@ -256,9 +258,11 @@
 		<p>An image constructed from the response data. If an error occurs during the request, <code>nil</code> will be returned, and the <code>error</code> property will be set to the error.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, retain) UIImage *responseImage</code></div>
-	
+
+    
 	
 	
 	
@@ -294,18 +298,20 @@
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/imageRequestOperationWithRequest:imageProcessingBlock:cacheName:success:failure:" title="imageRequestOperationWithRequest:imageProcessingBlock:cacheName:success:failure:"></a>
-	<h3 class="subsubtitle method-title">imageRequestOperationWithRequest:imageProcessingBlock:cacheName:success:failure:</h3>
+	<a name="//api/name/imageRequestOperationWithRequest:imageProcessingBlock:success:failure:" title="imageRequestOperationWithRequest:imageProcessingBlock:success:failure:"></a>
+	<h3 class="subsubtitle method-title">imageRequestOperationWithRequest:imageProcessingBlock:success:failure:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Creates and returns an <a href="AFImageRequestOperation.html"><code>AFImageRequestOperation</code></a> object and sets the specified success callback.</p>
+		<p>Creates and returns an <code>AFImageRequestOperation</code> object and sets the specified success callback.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>+ (AFImageRequestOperation *)imageRequestOperationWithRequest:(NSURLRequest *)<em>urlRequest</em> imageProcessingBlock:(UIImage *( ^ ) ( UIImage *))<em>imageProcessingBlock</em> cacheName:(NSString *)<em>cacheNameOrNil</em> success:(void ( ^ ) ( NSURLRequest *request , NSHTTPURLResponse *response , UIImage *image ))<em>success</em> failure:(void ( ^ ) ( NSURLRequest *request , NSHTTPURLResponse *response , NSError *error ))<em>failure</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (AFImageRequestOperation *)imageRequestOperationWithRequest:(NSURLRequest *)<em>urlRequest</em> imageProcessingBlock:(UIImage *( ^ ) ( UIImage *image ))<em>imageProcessingBlock</em> success:(void ( ^ ) ( NSURLRequest *request , NSHTTPURLResponse *response , UIImage *image ))<em>success</em> failure:(void ( ^ ) ( NSURLRequest *request , NSHTTPURLResponse *response , NSError *error ))<em>failure</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -330,11 +336,6 @@
 			<dd><p>A block object to be executed when the request finishes unsuccessfully. This block has no return value and takes three arguments: the request object of the operation, the response for the request, and the error associated with the cause for the unsuccessful operation.</p></dd>
 		</dl>
 		
-		<dl class="argument-def parameter-def">
-			<dt><em>cacheName</em></dt>
-			<dd><p>The cache name to be associated with the image. <code>AFImageCache</code> associates objects by URL and cache name, allowing for multiple versions of the same image to be cached.</p></dd>
-		</dl>
-		
 	</div>
 	
 	
@@ -350,7 +351,7 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Creates and returns an <a href="AFImageRequestOperation.html"><code>AFImageRequestOperation</code></a> object and sets the specified success callback.</p>
+		<p>Creates and returns an <code>AFImageRequestOperation</code> object and sets the specified success callback.</p>
 	</div>
 	
 	
@@ -374,12 +375,14 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Creates and returns an <a href="AFImageRequestOperation.html"><code>AFImageRequestOperation</code></a> object and sets the specified success callback.</p>
+		<p>Creates and returns an <code>AFImageRequestOperation</code> object and sets the specified success callback.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (AFImageRequestOperation *)imageRequestOperationWithRequest:(NSURLRequest *)<em>urlRequest</em> success:(void ( ^ ) ( UIImage *image ))<em>success</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -409,7 +412,7 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Creates and returns an <a href="AFImageRequestOperation.html"><code>AFImageRequestOperation</code></a> object and sets the specified success callback.</p>
+		<p>Creates and returns an <code>AFImageRequestOperation</code> object and sets the specified success callback.</p>
 	</div>
 	
 	
@@ -441,9 +444,9 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Alamofire. All rights reserved. (Last updated: 2012-01-23)</span><br />
+						<p><span class="copyright">&copy; 2012 AFNetworking. All rights reserved. (Last updated: 2012-09-05)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 752)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -531,6 +534,14 @@
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>
