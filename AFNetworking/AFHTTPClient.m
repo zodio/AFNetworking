@@ -266,6 +266,11 @@ static NSString * AFPropertyListStringFromParameters(NSDictionary *parameters) {
 #ifdef _SYSTEMCONFIGURATION_H
     self.networkReachabilityStatus = AFNetworkReachabilityStatusUnknown;
     [self startMonitoringNetworkReachability];
+    
+    #if __IPHONE_OS_VERSION_MIN_REQUIRED
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopMonitoringNetworkReachability) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitoringNetworkReachability) name:UIApplicationDidBecomeActiveNotification object:nil];
+    #endif
 #endif
     
     self.operationQueue = [[[NSOperationQueue alloc] init] autorelease];
@@ -276,6 +281,7 @@ static NSString * AFPropertyListStringFromParameters(NSDictionary *parameters) {
 
 - (void)dealloc {
 #ifdef _SYSTEMCONFIGURATION_H
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self stopMonitoringNetworkReachability];
     [_networkReachabilityStatusBlock release];
 #endif
@@ -284,7 +290,7 @@ static NSString * AFPropertyListStringFromParameters(NSDictionary *parameters) {
     [_registeredHTTPOperationClassNames release];
     [_defaultHeaders release];
     [_operationQueue release];
-    
+        
     [super dealloc];
 }
 
@@ -377,6 +383,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     if (_networkReachability) {
         SCNetworkReachabilityUnscheduleFromRunLoop(_networkReachability, CFRunLoopGetMain(), (CFStringRef)NSRunLoopCommonModes);
         CFRelease(_networkReachability);
+        _networkReachability = nil;
     }
 }
 
