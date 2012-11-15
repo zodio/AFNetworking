@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>AFMultipartFormData Protocol Reference</title>
+		<title>AFStreamingMultipartFormData Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">AFMultipartFormData Protocol Reference</h1>
+				<h1 class="hideInXcode">AFStreamingMultipartFormData Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -26,8 +26,6 @@
 				<li id="jumpto_button" role="navigation">
 					<select id="jumpTo">
 	<option value="top">Jump To&#133;</option>
-	
-	<option value="overview">Overview</option>
 	
 	
 	
@@ -63,8 +61,6 @@
 		<nav id="tocContainer" class="isShowingTOC">
 			<ul id="toc" role="tree">
 				
-<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
-
 
 
 
@@ -99,7 +95,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="AFMultipartFormData Protocol Reference" name="top"></a>
+				<a title="AFStreamingMultipartFormData Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -108,26 +104,24 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">AFMultipartFormData Protocol Reference</h1>
+						<h1 class="title title-header">AFStreamingMultipartFormData Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value"><a href="../Protocols/AFMultipartFormData.html">AFMultipartFormData</a></td>
+</tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">AFHTTPClient.h</td>
+	<td class="specification-value">AFHTTPClient.m</td>
 </tr>
 						</tbody></table></div>
 					
-					
-					
-					
-					<div class="section section-overview">
-						<a title="Overview" name="overview"></a>
-						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The <a href="AFMultipartFormData.html"><code>AFMultipartFormData</code></a> protocol defines the methods supported by the parameter in the block argument of <code></code>AFHTTPClient<code> -multipartFormRequestWithMethod:path:parameters:constructingBodyWithBlock:</code>.</p>
-					</div>
 					
 					
 					
@@ -148,35 +142,35 @@
 		<span class="tooltip"><p>Appends the HTTP header <code>Content-Disposition: file; filename=#{generated filename}; name=#{name}"</code> and <code>Content-Type: #{generated mimeType}</code>, followed by the encoded file data and the multipart form boundary.</p></span>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/appendPartWithFileData:name:fileName:mimeType:">&ndash;&nbsp;appendPartWithFileData:name:fileName:mimeType:</a></code>
 		<span class="tooltip"><p>Appends the HTTP header <code>Content-Disposition: file; filename=#{filename}; name=#{name}"</code> and <code>Content-Type: #{mimeType}</code>, followed by the encoded file data and the multipart form boundary.</p></span>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/appendPartWithFormData:name:">&ndash;&nbsp;appendPartWithFormData:name:</a></code>
 		<span class="tooltip"><p>Appends the HTTP headers <code>Content-Disposition: form-data; name=#{name}"</code>, followed by the encoded data and the multipart form boundary.</p></span>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/appendPartWithHeaders:body:">&ndash;&nbsp;appendPartWithHeaders:body:</a></code>
 		<span class="tooltip"><p>Appends HTTP headers, followed by the encoded data and the multipart form boundary.</p></span>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/throttleBandwidthWithPacketSize:delay:">&ndash;&nbsp;throttleBandwidthWithPacketSize:delay:</a></code>
 		<span class="tooltip"><p>Throttles request bandwidth by limiting the packet size and adding a delay for each chunk read from the upload stream.</p></span>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
 </li>
 						</ul>
 						
