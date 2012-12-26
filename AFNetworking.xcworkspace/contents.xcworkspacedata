@@ -61,6 +61,18 @@
       <FileRef
          location = "group:UIImageView+AFNetworking.m">
       </FileRef>
+      <FileRef
+         location = "group:AFImageTransformationProtocol.h">
+      </FileRef>
+      <FileRef
+         location = "group:AFImageTransformationProtocol.m">
+      </FileRef>
+      <FileRef
+         location = "group:../../AFHTTPRequestOperationLogger/AFHTTPRequestOperationLogger.h">
+      </FileRef>
+      <FileRef
+         location = "group:../../AFHTTPRequestOperationLogger/AFHTTPRequestOperationLogger.m">
+      </FileRef>
    </Group>
    <FileRef
       location = "group:Example/AFNetworking iOS Example.xcodeproj">
