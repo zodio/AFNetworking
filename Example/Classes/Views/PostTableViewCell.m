@@ -26,6 +26,7 @@
 #import "User.h"
 
 #import "UIImageView+AFNetworking.h"
+#import "AFImageTransformationProtocol.h"
 
 @implementation PostTableViewCell {
 @private
@@ -54,7 +55,10 @@
 
     self.textLabel.text = _post.user.username;
     self.detailTextLabel.text = _post.text;
-    [self.imageView setImageWithURL:_post.user.avatarImageURL placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+    self.imageView.contentMode = UIViewContentModeCenter;
+//    [self.imageView setImageWithURL:_post.user.avatarImageURL placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"]];
+
+    [self.imageView setImageWithURL:_post.user.avatarImageURL placeholderImage:[UIImage imageNamed:@"profile-image-placeholder"] scaledToSize:CGSizeMake(30.0f, 30.0f)];
     
     [self setNeedsLayout];
 }

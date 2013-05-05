@@ -195,7 +195,7 @@ static dispatch_queue_t image_request_operation_processing_queue() {
         _acceptablePathExtension = [[NSSet alloc] initWithObjects:@"tif", @"tiff", @"jpg", @"jpeg", @"gif", @"png", @"ico", @"bmp", @"cur", nil];
     });
 
-    return [_acceptablePathExtension containsObject:[[request URL] pathExtension]] || [super canProcessRequest:request];
+    return [[request valueForHTTPHeaderField:@"Accept"] isEqual:@"image/*"] || [_acceptablePathExtension containsObject:[[request URL] pathExtension]] || [super canProcessRequest:request];
 }
 
 - (void)setCompletionBlockWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
@@ -226,7 +226,7 @@ static dispatch_queue_t image_request_operation_processing_queue() {
                     });
                 }
             }
-        });        
+        });
     };
 #pragma clang diagnostic pop
 }
