@@ -27,6 +27,8 @@
 
     #import "AFNetworkActivityIndicatorManager.h"
 
+    #import "AFImageTransformationProtocol.h"
+
     @implementation AppDelegate
     @synthesize window = _window;
     @synthesize navigationController = _navigationController;
@@ -36,7 +38,9 @@
     {
         NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
         [NSURLCache setSharedURLCache:URLCache];
-            
+
+        [NSURLProtocol registerClass:[AFImageTransformationProtocol class]];
+
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
         
         UITableViewController *viewController = [[GlobalTimelineViewController alloc] initWithStyle:UITableViewStylePlain];

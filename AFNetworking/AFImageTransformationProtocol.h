@@ -1,6 +1,6 @@
 // AFImageTransformationProtocol.h
 // 
-// Copyright (c) 2012年 __MyCompanyName__
+// Copyright (c) 2013 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,19 +23,24 @@
 #import <Foundation/Foundation.h>
 
 extern NSString * const AFImageTransformationScale;
-extern NSString * const AFImageTransformationCrop;
-extern NSString * const AFImageTransformationGrayscale;
 
+/**
+ 
+ */
 @interface AFImageTransformationProtocol : NSURLProtocol
-
-+ (void)setScaledImageSize:(CGSize)size forRequest:(NSMutableURLRequest *)request;
 
 @end
 
 #pragma mark -
 
+/**
+ 
+ */
 @interface UIImageView (AFImageTransformation)
 
+/**
+ 
+ */
 - (void)setImageWithURL:(NSURL *)url
        placeholderImage:(UIImage *)placeholderImage
            scaledToSize:(CGSize)size;

@@ -1,6 +1,6 @@
-// AFImageTransformationProtocol.m
-// 
-// Copyright (c) 2012年 __MyCompanyName__
+// AFImageTransformationProtocol.h
+//
+// Copyright (c) 2013 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,24 +27,26 @@
 #import "UIImageView+AFNetworking.h"
 
 NSString * const AFImageTransformationScale = @"X-AF-Image-Scale";
-NSString * const AFImageTransformationCrop = @"X-AF-Image-Crop";
-NSString * const AFImageTransformationGrayscale = @"X-AF-Image-Grayscale";
 
-static NSDictionary * AFParametersFromURLRequest(NSURLRequest *request) {
-    NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
-    for (NSString *pair in [[[request URL] query] componentsSeparatedByString:@"&"]) {
-        NSArray *components = [pair componentsSeparatedByString:@"="];
-        if ([components count] != 2) {
-            continue;
-        }
-        
-        NSString *key = [components objectAtIndex:0];
-        NSString *value = [components objectAtIndex:1];
-        
-        [mutableParameters setValue:value forKey:key];
+static UIImage * AFImageScaledToSize(UIImage *image, CGSize size) {
+    CGFloat horizontalAspectRatio = size.width / image.size.width;
+    CGFloat verticalAspectRatio = size.height / image.size.height;
+    CGFloat ratio = MAX(horizontalAspectRatio, verticalAspectRatio);
+
+    CGSize newSize = CGSizeMake(image.size.width * ratio, image.size.height * ratio);
+    CGRect newRect = CGRectIntegral(CGRectMake(0.0f, 0.0f, newSize.width, newSize.height));
+    UIGraphicsBeginImageContext(newRect.size);
+    {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+
+        CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+        [image drawInRect:newRect];
+
+        image = UIGraphicsGetImageFromCurrentImageContext();
     }
+    UIGraphicsEndImageContext();
     
-    return mutableParameters;
+    return image;
 }
 
 #pragma mark -
@@ -68,29 +70,10 @@ static NSDictionary * AFParametersFromURLRequest(NSURLRequest *request) {
     static NSArray *_recognizedTransformations = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _recognizedTransformations = [NSArray arrayWithObjects:AFImageTransformationScale, AFImageTransformationCrop, AFImageTransformationGrayscale, nil];
+        _recognizedTransformations = [NSArray arrayWithObjects:AFImageTransformationScale, nil];
     });
     
     return _recognizedTransformations;
-}
-
-//+ (AFHTTPClient *)sharedClient {
-//    static AFHTTPClient *_sharedClient = nil;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        _sharedClient = [[AFHTTPClient alloc] init];
-//    });
-//}
-
-+ (NSOperationQueue *)sharedOperationQueue {
-    static NSOperationQueue *_sharedOperationQueue = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedOperationQueue = [[NSOperationQueue alloc] init];
-        [_sharedOperationQueue setMaxConcurrentOperationCount:1];
-    });
-    
-    return _sharedOperationQueue;
 }
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
@@ -99,7 +82,7 @@ static NSDictionary * AFParametersFromURLRequest(NSURLRequest *request) {
     for (NSString *header in [self recognizedTransformations]) {
         if ([request valueForHTTPHeaderField:header]) {
             hasTransformation = YES;
-            break;
+            [self setProperty:[request valueForHTTPHeaderField:header] forKey:header inRequest:(NSMutableURLRequest *)request];
         }
     }
     
@@ -117,16 +100,12 @@ static NSDictionary * AFParametersFromURLRequest(NSURLRequest *request) {
 
 - (void)startLoading {
     self.imageRequestOperation = [[AFProtocolProxiedImageRequestOperation alloc] initWithRequest:[[self class] canonicalRequestForRequest:self.request] protocol:self];
-//    [[[self class] sharedOperationQueue] addOperation:self.imageRequestOperation];
 
     [self.imageRequestOperation start];
 }
 
 - (void)stopLoading {
-    if ([self.imageRequestOperation isFinished]) {
-        NSLog(@"Finished");
-    } else {
-        NSLog(@"Wat");
+    if (![self.imageRequestOperation isFinished]) {
         [self.imageRequestOperation cancel];
     }
 }
@@ -164,40 +143,12 @@ static NSDictionary * AFParametersFromURLRequest(NSURLRequest *request) {
 
 #pragma mark - NSURLConnectionDelegate
 
-//- (BOOL)connection:(NSURLConnection *)connection
-//canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
-//{
-//    return [super connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
-//}
-
 - (void)connection:(NSURLConnection *)connection
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
     [self.URLProtocol.client URLProtocol:self.URLProtocol didReceiveAuthenticationChallenge:challenge];
     [super connection:connection didReceiveAuthenticationChallenge:challenge];
 }
-
-//- (NSURLRequest *)connection:(NSURLConnection *)connection
-//             willSendRequest:(NSURLRequest *)request
-//            redirectResponse:(NSURLResponse *)redirectResponse
-//{
-//    NSURLRequest *redirectRequest = [super connection:connection willSendRequest:request redirectResponse:redirectResponse];
-//    if (redirectResponse) {
-//        redirectRequest = nil;
-//    }
-//    
-//    [self.URLProtocol.client URLProtocol:self.URLProtocol wasRedirectedToRequest:redirectRequest redirectResponse:redirectResponse];
-//    
-//    return redirectRequest;
-//}
-
-//- (void)connection:(NSURLConnection *)connection
-//   didSendBodyData:(NSInteger)bytesWritten
-// totalBytesWritten:(NSInteger)totalBytesWritten
-//totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
-//{
-//    [super connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
-//}
 
 - (void)connection:(NSURLConnection *)connection
 didReceiveResponse:(NSURLResponse *)response
@@ -208,10 +159,22 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     [super connectionDidFinishLoading:connection];
-    self.responseImage = [UIImage imageNamed:@"Icon.png"];
-    self.responseData = UIImagePNGRepresentation(self.responseImage);
-    [self.URLProtocol.client URLProtocol:self.URLProtocol didLoadData:self.responseData];
-    [self.URLProtocol.client URLProtocolDidFinishLoading:self.URLProtocol];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        @autoreleasepool {
+            UIImage *image = [[UIImage alloc] initWithData:self.responseData];            
+
+            CGSize size = CGSizeFromString([AFImageTransformationProtocol propertyForKey:AFImageTransformationScale inRequest:self.request]);
+            if (!CGSizeEqualToSize(size, CGSizeZero)) {
+                image = AFImageScaledToSize(image, size);
+            }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.URLProtocol.client URLProtocol:self.URLProtocol didLoadData:UIImagePNGRepresentation(image)];
+                [self.URLProtocol.client URLProtocolDidFinishLoading:self.URLProtocol];
+            });
+        }
+    });
 }
 
 - (void)connection:(NSURLConnection *)connection
@@ -240,7 +203,7 @@ didReceiveResponse:(NSURLResponse *)response
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPShouldHandleCookies:NO];
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-    [request addValue:@"true" forHTTPHeaderField:AFImageTransformationScale];
+    [request addValue:NSStringFromCGSize(size) forHTTPHeaderField:AFImageTransformationScale];
     
     [self setImageWithURLRequest:request placeholderImage:placeholderImage success:nil failure:nil];
 }
